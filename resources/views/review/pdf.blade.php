@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="utf-8">
     <title>Hasil Pemeriksaan Formulir ROMANTIK - {{ $identity['id_trans'] ?? 'Dokumen' }}</title>
@@ -38,17 +39,20 @@
             padding-bottom: 8px;
             margin-bottom: 12px;
         }
+
         .app-title {
             font-size: 15pt;
             font-weight: bold;
             color: #0f172a;
             line-height: 1.2;
         }
+
         .doc-subtitle {
             font-size: 10pt;
             color: #475569;
             margin-top: 2px;
         }
+
         .badge-prototype {
             display: inline-block;
             padding: 3px 8px;
@@ -79,18 +83,21 @@
             border-collapse: collapse;
             margin-bottom: 6px;
         }
+
         table.meta-table td {
             padding: 4px 6px;
             font-size: 8.5pt;
             vertical-align: top;
             border: 1px solid #e2e8f0;
         }
+
         table.meta-table td.label-col {
             width: 25%;
             font-weight: bold;
             background-color: #f8fafc;
             color: #475569;
         }
+
         table.meta-table td.value-col {
             color: #0f172a;
         }
@@ -101,6 +108,7 @@
             border-collapse: collapse;
             margin-bottom: 8px;
         }
+
         table.summary-table th,
         table.summary-table td {
             border: 1px solid #cbd5e1;
@@ -108,12 +116,14 @@
             text-align: left;
             font-size: 8.5pt;
         }
+
         table.summary-table th {
             background-color: #f1f5f9;
             color: #334155;
             font-weight: bold;
             width: 25%;
         }
+
         .metric-num {
             font-size: 11pt;
             font-weight: bold;
@@ -129,6 +139,7 @@
             background-color: #ffffff;
             page-break-inside: avoid;
         }
+
         .card-header {
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 4px;
@@ -146,6 +157,7 @@
             border-radius: 3px;
             display: inline-block;
         }
+
         .badge-warning {
             background-color: #fef3c7;
             color: #92400e;
@@ -156,6 +168,7 @@
             border-radius: 3px;
             display: inline-block;
         }
+
         .badge-info {
             background-color: #f1f5f9;
             color: #334155;
@@ -166,6 +179,7 @@
             border-radius: 3px;
             display: inline-block;
         }
+
         .badge-rule {
             font-family: "Courier New", Courier, monospace;
             font-weight: bold;
@@ -181,11 +195,13 @@
         .item-row {
             margin-bottom: 3px;
         }
+
         .item-label {
             font-weight: bold;
             color: #475569;
             font-size: 8pt;
         }
+
         .item-val {
             color: #0f172a;
             font-size: 8.5pt;
@@ -197,12 +213,14 @@
             border-top: 1px dashed #e2e8f0;
             padding-top: 3px;
         }
+
         .evidence-title {
             font-size: 7.5pt;
             font-weight: bold;
             color: #475569;
             margin-bottom: 1px;
         }
+
         pre.evidence-pre {
             font-family: "Courier New", Courier, monospace;
             font-size: 7pt;
@@ -227,9 +245,11 @@
             line-height: 1.5;
             color: #1e293b;
         }
+
         .hybrid-content p {
             margin: 0 0 5px 0;
         }
+
         .hybrid-content p:last-child {
             margin-bottom: 0;
         }
@@ -243,6 +263,7 @@
             color: #334155;
             margin-bottom: 6px;
         }
+
         .empty-note {
             padding: 8px;
             text-align: center;
@@ -254,6 +275,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Footer Halaman (Otomatis berulang di setiap halaman A4) -->
     <div class="footer">
@@ -262,7 +284,8 @@
                 <td style="text-align: left; vertical-align: top; border: none; padding: 0;">
                     ROMANTIK Web &mdash; Prototype Pemeriksaan Hybrid AI
                     <br>
-                    <span style="font-size: 6.5pt; color: #94a3b8;">Dokumen dihasilkan dari hasil pemeriksaan sistem. Bukan keputusan resmi BPS.</span>
+                    <span style="font-size: 6.5pt; color: #94a3b8;">Dokumen dihasilkan dari hasil pemeriksaan sistem.
+                        Bukan keputusan resmi BPS.</span>
                 </td>
                 <td style="text-align: right; vertical-align: top; border: none; padding: 0;">
                     Waktu unduh: {{ $downloadedAt }}
@@ -289,7 +312,8 @@
     <table class="meta-table">
         <tr>
             <td class="label-col">ID Transaksi</td>
-            <td class="value-col" style="font-family: 'Courier New', Courier, monospace; font-weight: bold;">{{ $identity['id_trans'] }}</td>
+            <td class="value-col" style="font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+                {{ $identity['id_trans'] }}</td>
         </tr>
         <tr>
             <td class="label-col">Nama Kegiatan</td>
@@ -306,7 +330,8 @@
         @if (!empty($identity['file_name']))
             <tr>
                 <td class="label-col">Nama Berkas Sumber</td>
-                <td class="value-col" style="font-family: 'Courier New', Courier, monospace; font-size: 8pt;">{{ $identity['file_name'] }}</td>
+                <td class="value-col" style="font-family: 'Courier New', Courier, monospace; font-size: 8pt;">
+                    {{ $identity['file_name'] }}</td>
             </tr>
         @endif
     </table>
@@ -347,7 +372,8 @@
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr>
                             <td style="border: none; padding: 0; vertical-align: middle;">
-                                <strong style="color: #475569; font-size: 8pt;">Temuan #{{ $finding['index'] }}</strong>
+                                <strong style="color: #475569; font-size: 8pt;">Temuan
+                                    #{{ $finding['index'] }}</strong>
                                 &nbsp;
                                 <span class="badge-rule">{{ $finding['rule_id'] }}</span>
                                 &nbsp;
@@ -398,7 +424,8 @@
     <!-- D. ATURAN BELUM DAPAT DIEVALUASI -->
     <div class="section-title">D. ATURAN BELUM DAPAT DIEVALUASI</div>
     <div class="note-box">
-        Status ini menunjukkan aturan belum dapat menyimpulkan lulus atau temuan karena informasi yang diperlukan belum tersedia atau kondisi evaluasinya belum dapat dipastikan.
+        Status ini menunjukkan aturan belum dapat menyimpulkan lulus atau temuan karena informasi yang diperlukan belum
+        tersedia atau kondisi evaluasinya belum dapat dipastikan.
     </div>
 
     @if (!empty($notEvaluable))
@@ -446,7 +473,12 @@
         @endforeach
     @else
         <div class="empty-note">
-            Semua aturan yang relevan dapat dievaluasi.
+            @if (($summary['n_not_evaluable'] ?? 0) > 0)
+                Terdapat {{ $summary['n_not_evaluable'] }} aturan yang belum dapat dievaluasi, tetapi detail aturan
+                belum tersedia pada respons pemeriksaan.
+            @else
+                Semua aturan yang relevan dapat dievaluasi.
+            @endif
         </div>
     @endif
 
@@ -456,8 +488,10 @@
         @if (!empty($formattedHybridReview))
             {!! $formattedHybridReview !!}
         @else
-            <p style="color: #64748b; font-style: italic;">Tidak ada catatan pemeriksaan Hybrid AI untuk formulir ini.</p>
+            <p style="color: #64748b; font-style: italic;">Tidak ada catatan pemeriksaan Hybrid AI untuk formulir ini.
+            </p>
         @endif
     </div>
 </body>
+
 </html>

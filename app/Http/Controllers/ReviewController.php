@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\RomantikAiException;
 use App\Exceptions\RomantikAiTimeoutException;
-use App\Services\RbsFallbackResolver;
 use App\Services\RbsNotEvaluableFormatter;
 use App\Services\ReviewHtmlFormatter;
 use App\Services\RomantikAiClient;
@@ -29,24 +28,6 @@ class ReviewController extends Controller
 
         /** @var array<string, mixed>|null $reviewResult */
         $reviewResult = session('review_result');
-
-        if (
-            is_array($reviewResult)
-            && isset($reviewResult['rbs'])
-            && is_array($reviewResult['rbs'])
-            && (int) ($reviewResult['rbs']['n_not_evaluable'] ?? 0) > 0
-            && empty($reviewResult['rbs']['not_evaluable'])
-            && empty($reviewResult['rbs']['not_evaluable_rules'])
-        ) {
-            $rawJson = session('romantik_json');
-            if (is_string($rawJson) && trim($rawJson) !== '') {
-                $fallbackRules = app(RbsFallbackResolver::class)->resolve($rawJson);
-                if (! empty($fallbackRules)) {
-                    $reviewResult['rbs']['not_evaluable'] = $fallbackRules;
-                    session()->put('review_result', $reviewResult);
-                }
-            }
-        }
 
         $formattedHybridReview = null;
         if ($reviewResult !== null && is_array($reviewResult)) {
@@ -251,23 +232,6 @@ class ReviewController extends Controller
         if (! is_array($reviewResult) || empty($reviewResult)) {
             return redirect()->route('review.index')
                 ->withErrors(['download' => 'Hasil pemeriksaan belum tersedia. Jalankan pemeriksaan terlebih dahulu.']);
-        }
-
-        if (
-            isset($reviewResult['rbs'])
-            && is_array($reviewResult['rbs'])
-            && (int) ($reviewResult['rbs']['n_not_evaluable'] ?? 0) > 0
-            && empty($reviewResult['rbs']['not_evaluable'])
-            && empty($reviewResult['rbs']['not_evaluable_rules'])
-        ) {
-            $rawJson = session('romantik_json');
-            if (is_string($rawJson) && trim($rawJson) !== '') {
-                $fallbackRules = app(RbsFallbackResolver::class)->resolve($rawJson);
-                if (! empty($fallbackRules)) {
-                    $reviewResult['rbs']['not_evaluable'] = $fallbackRules;
-                    session()->put('review_result', $reviewResult);
-                }
-            }
         }
 
         /** @var array<string, string>|null $preview */

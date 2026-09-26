@@ -300,9 +300,7 @@ test('fallback pesan ditampilkan jika n_not_evaluable > 0 namun array detail bel
     $response->assertSee('Backend response saat ini hanya menyertakan jumlah ringkasan aturan (17 aturan).');
 });
 
-test('otomatis melengkapi detail not_evaluable dari romantik_json di sesi jika backend hanya menyertakan jumlah ringkasan', function () {
-    Http::fake();
-
+test('menampilkan graceful fallback dan tidak mengeksekusi python lokal jika backend hanya menyertakan n_not_evaluable', function () {
     $rawJson = (string) file_get_contents(base_path('sample_romantik.json'));
     $mockReviewResult = [
         'status' => 'success',
@@ -310,7 +308,7 @@ test('otomatis melengkapi detail not_evaluable dari romantik_json di sesi jika b
             'n_findings' => 5,
             'n_not_evaluable' => 17,
             'findings' => [],
-            // not_evaluable tidak disediakan oleh API lama
+            // not_evaluable tidak disediakan oleh API
         ],
     ];
 
@@ -321,6 +319,6 @@ test('otomatis melengkapi detail not_evaluable dari romantik_json di sesi jika b
 
     $response->assertStatus(200);
     $response->assertSee('Aturan Belum Dapat Dievaluasi');
-    $response->assertSee('R-VI-01');
-    $response->assertDontSee('Detail aturan belum tersedia pada response pemeriksaan.');
+    $response->assertSee('Terdapat 17 aturan yang belum dapat dievaluasi, tetapi detail aturan belum tersedia pada respons pemeriksaan.');
+    $response->assertDontSee('Semua aturan yang relevan dapat dievaluasi.');
 });
