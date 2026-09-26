@@ -1,0 +1,47 @@
+# Version control and editor files
+.git
+.github
+.idea
+.vscode
+.claude
+.DS_Store
+Thumbs.db
+
+# Environment and sensitive secrets
+.env
+.env.*
+!.env.example
+
+# Local dependencies
+node_modules
+vendor
+
+# Testing artifacts and caches
+.phpunit.cache
+.phpunit.result.cache
+tests
+
+# Logs and runtime caches
+*.log
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+!storage/framework/cache/.gitignore
+!storage/framework/sessions/.gitignore
+!storage/framework/views/.gitignore
+!storage/logs/.gitignore
+
+# Development and private ROMANTIK samples
+sample_romantik.json
+live_fastapi_result.json
+raw_chunk_51.txt
+reconstructed_raw.json
+storage/app/samples/*
+
+# Public hot reload and build caches
+public/hot
+public/storage
+
+# Preserve required data files in Docker image
+!storage/app/data/rule_catalog.json

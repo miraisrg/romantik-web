@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: romantik-web
+    env: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: "ROMANTIK Web"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        sync: false # Set base64-encoded key generated via: php artisan key:generate --show
+      - key: APP_URL
+        sync: false # Example: https://romantik-web.onrender.com
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: ROMANTIK_AI_API_URL
+        sync: false # Example: https://romantik-ai-api.onrender.com
+      - key: ROMANTIK_AI_TIMEOUT
+        value: "120"
