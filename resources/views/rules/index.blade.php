@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Katalog Aturan RBS - ROMANTIK Web</title>
+    <title>ROMANTIK Web | Katalog Aturan RBS</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased flex flex-col justify-between">
@@ -19,7 +20,7 @@
                         <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                             Katalog Aturan RBS
                         </h1>
-                        <span class="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
+                        <span class="inline-flex items-center rounded-full bg-orange-50 px-2.5 py-0.5 text-xs font-semibold text-orange-700 ring-1 ring-inset ring-orange-700/10">
                             {{ $totalRules }} aturan
                         </span>
                     </div>
@@ -54,7 +55,7 @@
                         type="text"
                         id="input-search-rules"
                         placeholder="Cari kode, nama, atau keterangan rule..."
-                        class="block w-full rounded-lg border border-slate-200 bg-slate-50/70 py-2 pl-9 pr-8 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 transition-colors"
+                        class="block w-full rounded-lg border border-slate-200 bg-slate-50/70 py-2 pl-9 pr-8 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-orange-500 transition-colors"
                     />
                     <button
                         type="button"
@@ -73,7 +74,7 @@
                     <label for="select-filter-section" class="sr-only">Filter Bagian Formulir</label>
                     <select
                         id="select-filter-section"
-                        class="block w-full rounded-lg border border-slate-200 bg-slate-50/70 py-2 px-3 text-xs sm:text-sm text-slate-800 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 transition-colors cursor-pointer"
+                        class="block w-full rounded-lg border border-slate-200 bg-slate-50/70 py-2 px-3 text-xs sm:text-sm text-slate-800 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-orange-500 transition-colors cursor-pointer"
                     >
                         <option value="">Semua Bagian</option>
                         @foreach ($sections as $section)
@@ -87,7 +88,7 @@
                     <label for="select-filter-severity" class="sr-only">Filter Tingkat Temuan</label>
                     <select
                         id="select-filter-severity"
-                        class="block w-full rounded-lg border border-slate-200 bg-slate-50/70 py-2 px-3 text-xs sm:text-sm text-slate-800 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-indigo-500 transition-colors cursor-pointer"
+                        class="block w-full rounded-lg border border-slate-200 bg-slate-50/70 py-2 px-3 text-xs sm:text-sm text-slate-800 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-orange-500 transition-colors cursor-pointer"
                     >
                         <option value="">Semua Tingkat</option>
                         <option value="error">Kesalahan</option>
@@ -166,7 +167,7 @@
 
                         <button
                             type="button"
-                            class="btn-open-detail inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-indigo-700 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200/80 transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500"
+                            class="btn-open-detail inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-orange-700 hover:text-orange-800 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200/80 transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-orange-500"
                             data-rule-id="{{ $ruleId }}"
                             aria-label="Lihat detail aturan {{ $ruleId }}"
                         >
@@ -211,7 +212,7 @@
             <button
                 type="button"
                 id="btn-reset-filters-empty"
-                class="mt-4 inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200/80 transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500"
+                class="mt-4 inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-orange-700 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200/80 transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-orange-500"
             >
                 Atur Ulang Filter
             </button>
@@ -245,7 +246,7 @@
                         type="button"
                         id="btn-close-modal-header"
                         aria-label="Tutup modal detail aturan"
-                        class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg cursor-pointer transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500"
+                        class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg cursor-pointer transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-orange-500"
                     >
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -321,8 +322,8 @@
 
                 <!-- Detail Teknis (Collapsible) -->
                 <details class="group rounded-xl border border-slate-200 bg-slate-50/60 p-3.5 text-xs">
-                    <summary class="inline-flex items-center gap-1.5 font-semibold text-slate-700 hover:text-indigo-600 cursor-pointer select-none transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
-                        <svg class="w-3.5 h-3.5 transition-transform duration-200 group-open:rotate-90 text-slate-400 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <summary class="inline-flex items-center gap-1.5 font-semibold text-slate-700 hover:text-orange-600 cursor-pointer select-none transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-orange-500 rounded">
+                        <svg class="w-3.5 h-3.5 transition-transform duration-200 group-open:rotate-90 text-slate-400 group-hover:text-orange-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                         <span>Detail Teknis</span>
@@ -341,7 +342,7 @@
                 <button
                     type="button"
                     id="btn-close-modal-footer"
-                    class="px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500"
+                    class="px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-orange-500"
                 >
                     Tutup
                 </button>
@@ -622,9 +623,9 @@
                 if (targetCard) {
                     setTimeout(function () {
                         targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        targetCard.classList.add('ring-2', 'ring-indigo-500', 'border-indigo-300');
+                        targetCard.classList.add('ring-2', 'ring-orange-500', 'border-orange-300');
                         setTimeout(function () {
-                            targetCard.classList.remove('ring-2', 'ring-indigo-500', 'border-indigo-300');
+                            targetCard.classList.remove('ring-2', 'ring-orange-500', 'border-orange-300');
                         }, 3500);
                         openRuleModal(targetRule);
                     }, 150);

@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             zone.addEventListener(eventName, function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                zone.classList.add('border-indigo-500', 'bg-indigo-50/40');
+                zone.classList.add('border-orange-500', 'bg-orange-50/40');
             }, false);
         });
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             zone.addEventListener(eventName, function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                zone.classList.remove('border-indigo-500', 'bg-indigo-50/40');
+                zone.classList.remove('border-orange-500', 'bg-orange-50/40');
             }, false);
         });
 

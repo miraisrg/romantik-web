@@ -54,9 +54,9 @@
             padding: 3px 8px;
             font-size: 8pt;
             font-weight: bold;
-            color: #4338ca;
-            background-color: #e0e7ff;
-            border: 1px solid #c7d2fe;
+            color: #c2410c;
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
             border-radius: 4px;
         }
 
