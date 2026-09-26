@@ -1,0 +1,669 @@
+{
+  "metadata": {
+    "name": "Katalog Aturan RBS ROMANTIK BPS",
+    "version": "1.0",
+    "total_rules": 40,
+    "language": "id",
+    "purpose": "Metadata UI untuk menjelaskan aturan Rule-Based System pada prototipe ROMANTIK Web.",
+    "notes": [
+      "Field title merupakan judul singkat untuk UI yang diringkas dari keterangan/tujuan rule pada katalog sumber.",
+      "Status evaluasi (pass/violation/not_evaluable) dipisahkan dari severity (error/warning).",
+      "Field internal Hybrid AI tidak disertakan karena katalog ini ditujukan untuk pemeriksa/pengguna prototipe."
+    ]
+  },
+  "rules": [
+    {
+      "rule_id": "R-I-01",
+      "title": "Kelengkapan Nama Instansi Penyelenggara",
+      "section": "Blok I – Penyelenggara",
+      "main_field": [
+        "instansi_penyelenggara"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan nama instansi penyelenggara tersedia.",
+      "applicability": "Seluruh formulir.",
+      "violation_condition": "Nilai instansi penyelenggara kosong, null, atau hanya whitespace.",
+      "pass_condition": "Nama instansi tersedia dan dapat dibaca.",
+      "not_evaluable_condition": "Umumnya tidak diperlukan; bila path tidak dapat dibaca karena kerusakan struktur, hasil tidak boleh dipaksakan menjadi pass.",
+      "severity": "error",
+      "ui_message": "Instansi penyelenggara belum diisi."
+    },
+    {
+      "rule_id": "R-I-02A",
+      "title": "Indikasi Singkatan atau Akronim pada Nama Instansi",
+      "section": "Blok I – Penyelenggara",
+      "main_field": [
+        "instansi_penyelenggara"
+      ],
+      "check_type": "Format / heuristik",
+      "description": "Mendeteksi indikasi penggunaan singkatan atau akronim pada nama instansi.",
+      "applicability": "Seluruh formulir dengan nama instansi terisi.",
+      "violation_condition": "Terdapat token atau pola yang terindikasi sebagai singkatan atau akronim menurut heuristik.",
+      "pass_condition": "Tidak ditemukan kandidat singkatan atau akronim oleh heuristik.",
+      "not_evaluable_condition": "Tidak digunakan pada kondisi normal karena nama instansi dapat diperiksa secara tekstual.",
+      "severity": "warning",
+      "ui_message": "Nama instansi terindikasi mengandung singkatan atau akronim."
+    },
+    {
+      "rule_id": "R-I-04",
+      "title": "Kelengkapan Alamat Instansi Penyelenggara",
+      "section": "Blok I – Penyelenggara",
+      "main_field": [
+        "alamat_instansi_penyelenggara"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan alamat instansi penyelenggara terisi.",
+      "applicability": "Seluruh formulir.",
+      "violation_condition": "Alamat utama atau komponen alamat yang diwajibkan kosong.",
+      "pass_condition": "Alamat tersedia sesuai struktur formulir.",
+      "not_evaluable_condition": "Jika struktur alamat tidak dapat dibaca pada schema tertentu, kondisi tersebut tidak disamakan dengan pass.",
+      "severity": "error",
+      "ui_message": "Alamat instansi penyelenggara belum lengkap."
+    },
+    {
+      "rule_id": "R-ID-02A",
+      "title": "Konsistensi Judul dan Jenis Kegiatan",
+      "section": "Identitas Kegiatan",
+      "main_field": [
+        "nama_kegiatan",
+        "jenis/cara_kegiatan"
+      ],
+      "check_type": "Konsistensi / heuristik",
+      "description": "Memeriksa kesesuaian judul kegiatan dengan jenis atau cara pengumpulan yang dapat diidentifikasi.",
+      "applicability": "Hanya ketika jenis kegiatan dapat ditentukan dari formulir.",
+      "violation_condition": "Judul mengandung petunjuk jenis kegiatan yang berkonflik dengan jenis atau cara kegiatan yang teridentifikasi.",
+      "pass_condition": "Tidak ditemukan konflik tekstual yang cukup kuat.",
+      "not_evaluable_condition": "Jenis kegiatan tidak dapat ditentukan dari informasi yang tersedia (activity_type_unavailable).",
+      "severity": "error",
+      "ui_message": "Judul kegiatan terindikasi tidak konsisten dengan jenis kegiatan."
+    },
+    {
+      "rule_id": "R-ID-03",
+      "title": "Pencantuman Istilah Kompilasi pada Judul",
+      "section": "Identitas Kegiatan",
+      "main_field": [
+        "nama_kegiatan"
+      ],
+      "check_type": "Logika bisnis",
+      "description": "Untuk kegiatan kompilasi, judul diharapkan mencerminkan istilah 'Kompilasi Data' atau 'Kompilasi'.",
+      "applicability": "Jenis kegiatan harus berhasil ditentukan sebagai kompilasi.",
+      "violation_condition": "Kegiatan teridentifikasi sebagai kompilasi, tetapi judul tidak memuat kata 'kompilasi'.",
+      "pass_condition": "Bukan kompilasi, atau kompilasi dan judul sudah memuat istilah yang relevan.",
+      "not_evaluable_condition": "Jenis kegiatan belum dapat ditentukan (activity_type_unavailable).",
+      "severity": "warning",
+      "ui_message": "Kegiatan kompilasi belum mencantumkan istilah 'Kompilasi' pada judul."
+    },
+    {
+      "rule_id": "R-ID-04A",
+      "title": "Indikasi Tahun pada Judul Kegiatan",
+      "section": "Identitas Kegiatan",
+      "main_field": [
+        "nama_kegiatan"
+      ],
+      "check_type": "Format / heuristik",
+      "description": "Mendeteksi pencantuman angka tahun pada judul kegiatan.",
+      "applicability": "Seluruh judul yang tersedia.",
+      "violation_condition": "Judul mengandung pola tahun empat digit yang terindikasi sebagai tahun kegiatan.",
+      "pass_condition": "Tidak ditemukan pola tahun yang relevan.",
+      "not_evaluable_condition": "Tidak diperlukan bila judul tersedia; kasus parsing judul yang tidak terbaca tidak boleh dipaksakan.",
+      "severity": "warning",
+      "ui_message": "Judul kegiatan terindikasi mencantumkan tahun kegiatan."
+    },
+    {
+      "rule_id": "R-ID-05A",
+      "title": "Konsistensi Tahun Kegiatan dan Jadwal Pelaksanaan",
+      "section": "Identitas Kegiatan",
+      "main_field": [
+        "tahun_kegiatan",
+        "jadwal_pengumpulan"
+      ],
+      "check_type": "Konsistensi waktu",
+      "description": "Memeriksa kesesuaian tahun kegiatan dengan jadwal pelaksanaan atau pengumpulan data.",
+      "applicability": "Ketika tahun kegiatan dan tanggal jadwal yang relevan tersedia serta dapat diparse.",
+      "violation_condition": "Tahun kegiatan berbeda dengan tahun pada jadwal utama atau pengumpulan data, dengan mempertimbangkan kemungkinan kegiatan lintas tahun.",
+      "pass_condition": "Tahun konsisten dengan jadwal atau tidak ada ketidaksesuaian yang dapat dibuktikan.",
+      "not_evaluable_condition": "Tanggal atau jadwal tidak tersedia atau tidak dapat diparse.",
+      "severity": "error",
+      "ui_message": "Tahun kegiatan terindikasi tidak konsisten dengan jadwal pelaksanaan."
+    },
+    {
+      "rule_id": "R-II-01",
+      "title": "Kelengkapan Unit Penanggung Jawab",
+      "section": "Blok II – Penanggung Jawab",
+      "main_field": [
+        "unit_penanggung_jawab"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan unit penanggung jawab atau eselon yang dibutuhkan tersedia.",
+      "applicability": "Schema modern yang menyediakan field unit atau eselon.",
+      "violation_condition": "Field unit atau eselon yang diwajibkan kosong.",
+      "pass_condition": "Field yang relevan tersedia dan terisi.",
+      "not_evaluable_condition": "Field yang dibutuhkan tidak tersedia pada schema historis (field_unavailable_in_historical_schema).",
+      "severity": "error",
+      "ui_message": "Unit penanggung jawab belum lengkap."
+    },
+    {
+      "rule_id": "R-II-02",
+      "title": "Kelengkapan Penanggung Jawab Teknis",
+      "section": "Blok II – Penanggung Jawab",
+      "main_field": [
+        "penanggung_jawab_teknis"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan identitas penanggung jawab teknis terisi lengkap.",
+      "applicability": "Seluruh formulir yang memiliki struktur penanggung jawab teknis.",
+      "violation_condition": "Satu atau lebih elemen wajib seperti nama, jabatan, alamat atau kontak, telepon, atau email kosong sesuai struktur yang tersedia.",
+      "pass_condition": "Seluruh elemen yang diwajibkan terisi.",
+      "not_evaluable_condition": "Jika field benar-benar tidak tersedia secara struktural, kondisi tersebut harus dibedakan dari field kosong.",
+      "severity": "error",
+      "ui_message": "Data penanggung jawab teknis belum lengkap."
+    },
+    {
+      "rule_id": "R-III-04",
+      "title": "Konsistensi Waktu Pengajuan dan Pelaksanaan",
+      "section": "Blok III – Perencanaan dan Persiapan",
+      "main_field": [
+        "rencana_jadwal_kegiatan",
+        "tgl_pengajuan"
+      ],
+      "check_type": "Konsistensi waktu",
+      "description": "Secara konsep memeriksa bahwa pengajuan dilakukan sebelum pelaksanaan lapangan dimulai.",
+      "applicability": "Seharusnya berlaku ketika tanggal pengajuan reliabel dan jadwal pengumpulan tersedia.",
+      "violation_condition": "Secara konseptual: tanggal pengajuan lebih besar atau sama dengan awal pengumpulan data.",
+      "pass_condition": "Secara konseptual: pengajuan dilakukan sebelum awal pengumpulan data.",
+      "not_evaluable_condition": "Tanggal pengajuan historis tidak reliabel (historical_submission_date_unreliable). Pada rebuild final seluruh record dibuat not_evaluable.",
+      "severity": "error",
+      "ui_message": "Belum dapat dievaluasi karena tanggal pengajuan historis tidak reliabel."
+    },
+    {
+      "rule_id": "R-III-05A",
+      "title": "Indikasi Overlap Antar Tahapan Kegiatan",
+      "section": "Blok III – Perencanaan dan Persiapan",
+      "main_field": [
+        "rencana_jadwal_kegiatan"
+      ],
+      "check_type": "Konsistensi jadwal",
+      "description": "Mendeteksi kandidat overlap antartahapan kegiatan.",
+      "applicability": "Pasangan tanggal akhir-awal antartahap harus tersedia dan dapat diparse.",
+      "violation_condition": "Akhir tahap sebelumnya melewati awal tahap berikutnya pada satu atau lebih pasangan.",
+      "pass_condition": "Tidak ditemukan overlap pada pasangan tanggal yang dapat dievaluasi.",
+      "not_evaluable_condition": "Tanggal pasangan tahap tidak tersedia atau tidak dapat diparse sehingga sebagian atau seluruh perbandingan tidak dapat dilakukan.",
+      "severity": "error",
+      "ui_message": "Terdeteksi kandidat overlap antartahapan kegiatan. Tinjau kewajarannya."
+    },
+    {
+      "rule_id": "R-III-06",
+      "title": "Urutan Perencanaan dan Pengumpulan Data",
+      "section": "Blok III – Perencanaan dan Persiapan",
+      "main_field": [
+        "rencana_jadwal_kegiatan"
+      ],
+      "check_type": "Logika waktu",
+      "description": "Memastikan perencanaan atau persiapan tidak berakhir setelah pengumpulan data dimulai.",
+      "applicability": "Tanggal akhir perencanaan dan awal pengumpulan tersedia.",
+      "violation_condition": "Akhir perencanaan lebih besar dari awal pengumpulan.",
+      "pass_condition": "Akhir perencanaan lebih kecil atau sama dengan awal pengumpulan.",
+      "not_evaluable_condition": "Salah satu tanggal tidak tersedia atau tidak dapat diparse.",
+      "severity": "error",
+      "ui_message": "Perencanaan atau persiapan berakhir setelah pengumpulan data dimulai."
+    },
+    {
+      "rule_id": "R-III-08A",
+      "title": "Indikasi Singkatan atau Satuan pada Nama Variabel",
+      "section": "Blok III – Perencanaan dan Persiapan",
+      "main_field": [
+        "variabel_yang_dikumpulkan[].nama"
+      ],
+      "check_type": "Format / heuristik",
+      "description": "Mendeteksi indikasi singkatan atau satuan pada nama variabel.",
+      "applicability": "Daftar variabel dan nama variabel tersedia.",
+      "violation_condition": "Satu atau lebih nama variabel memuat token yang terindikasi singkatan atau satuan menurut heuristik.",
+      "pass_condition": "Tidak ditemukan kandidat pada nama variabel.",
+      "not_evaluable_condition": "Field nama variabel tidak tersedia atau struktur variabel tidak dapat diurai pada sebagian schema atau record.",
+      "severity": "warning",
+      "ui_message": "Nama variabel terindikasi mengandung singkatan atau satuan."
+    },
+    {
+      "rule_id": "R-III-09",
+      "title": "Kelengkapan Definisi Variabel",
+      "section": "Blok III – Perencanaan dan Persiapan",
+      "main_field": [
+        "variabel_yang_dikumpulkan[].definisi"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan setiap variabel memiliki definisi.",
+      "applicability": "Field definisi tersedia pada schema atau elemen variabel.",
+      "violation_condition": "Satu atau lebih definisi tersedia secara struktural tetapi kosong.",
+      "pass_condition": "Seluruh definisi yang dapat dievaluasi terisi.",
+      "not_evaluable_condition": "Field definisi tidak tersedia pada schema historis atau elemen tidak dapat dinilai.",
+      "severity": "error",
+      "ui_message": "Terdapat variabel yang belum memiliki definisi."
+    },
+    {
+      "rule_id": "R-III-10",
+      "title": "Format Definisi Variabel",
+      "section": "Blok III – Perencanaan dan Persiapan",
+      "main_field": [
+        "variabel_yang_dikumpulkan[].definisi"
+      ],
+      "check_type": "Format",
+      "description": "Memeriksa format definisi variabel: tidak diawali 'adalah' dan diakhiri tanda titik.",
+      "applicability": "Definisi tersedia dan berisi teks.",
+      "violation_condition": "Definisi diawali kata 'adalah' dan/atau tidak diakhiri tanda titik.",
+      "pass_condition": "Definisi memenuhi pola format yang disyaratkan.",
+      "not_evaluable_condition": "Definisi tidak tersedia atau field historis tidak ada sehingga format tidak dapat dinilai.",
+      "severity": "warning",
+      "ui_message": "Format definisi beberapa variabel perlu diperbaiki."
+    },
+    {
+      "rule_id": "R-III-12",
+      "title": "Kelengkapan Referensi Waktu Variabel",
+      "section": "Blok III – Perencanaan dan Persiapan",
+      "main_field": [
+        "variabel_yang_dikumpulkan[].referensi_waktu"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan referensi waktu tersedia untuk setiap variabel ketika field tersebut tersedia.",
+      "applicability": "Elemen variabel menyediakan field referensi_waktu.",
+      "violation_condition": "Satu atau lebih referensi waktu kosong.",
+      "pass_condition": "Referensi waktu terisi untuk semua elemen yang dapat dievaluasi.",
+      "not_evaluable_condition": "Field tidak tersedia pada schema atau elemen tertentu.",
+      "severity": "warning",
+      "ui_message": "Referensi waktu variabel belum lengkap."
+    },
+    {
+      "rule_id": "R-IV-01",
+      "title": "Kelengkapan Frekuensi Penyelenggaraan",
+      "section": "Blok IV – Desain Kegiatan",
+      "main_field": [
+        "frekuensi_penyelenggara"
+      ],
+      "check_type": "Konsistensi",
+      "description": "Memastikan frekuensi diisi ketika kegiatan dinyatakan berulang.",
+      "applicability": "Status keberulangan dan field frekuensi tersedia.",
+      "violation_condition": "Kegiatan berulang dan frekuensi kosong.",
+      "pass_condition": "Kegiatan tidak berulang, atau berulang dan frekuensi terisi.",
+      "not_evaluable_condition": "Status keberulangan atau frekuensi tidak tersedia secara memadai.",
+      "severity": "error",
+      "ui_message": "Frekuensi penyelenggaraan belum diisi untuk kegiatan berulang."
+    },
+    {
+      "rule_id": "R-IV-05",
+      "title": "Kesesuaian Tipe Pengumpulan untuk Kegiatan Sekali",
+      "section": "Blok IV – Desain Kegiatan",
+      "main_field": [
+        "tipe_pengumpulan_data"
+      ],
+      "check_type": "Konsistensi",
+      "description": "Memastikan kegiatan yang hanya dilakukan sekali menggunakan tipe pengumpulan yang sesuai, terutama cross-sectional.",
+      "applicability": "Status kegiatan dan tipe pengumpulan dapat dinormalisasi.",
+      "violation_condition": "Kegiatan hanya sekali dan tipe bukan cross-sectional/cross_section setelah normalisasi alias.",
+      "pass_condition": "Bukan kegiatan sekali, atau tipe sesuai.",
+      "not_evaluable_condition": "Nilai tipe atau status tidak dapat diinterpretasi.",
+      "severity": "error",
+      "ui_message": "Tipe pengumpulan data tidak sesuai dengan kegiatan yang hanya dilakukan sekali."
+    },
+    {
+      "rule_id": "R-IV-07",
+      "title": "Kelengkapan Daftar Wilayah Pengumpulan",
+      "section": "Blok IV – Desain Kegiatan",
+      "main_field": [
+        "cakupan_wilayah_pengumpulan_data",
+        "daftar_wilayah"
+      ],
+      "check_type": "Konsistensi",
+      "description": "Memastikan daftar wilayah terisi ketika cakupan hanya sebagian wilayah Indonesia.",
+      "applicability": "Cakupan wilayah berhasil dinormalisasi.",
+      "violation_condition": "Cakupan sebagian wilayah Indonesia dan daftar wilayah kosong atau tidak berisi marker wilayah yang valid.",
+      "pass_condition": "Cakupan nasional, atau cakupan sebagian dengan daftar wilayah valid.",
+      "not_evaluable_condition": "Cakupan tidak dapat ditentukan.",
+      "severity": "error",
+      "ui_message": "Daftar wilayah wajib diisi apabila cakupan pengumpulan data hanya sebagian wilayah Indonesia."
+    },
+    {
+      "rule_id": "R-IV-09",
+      "title": "Kesesuaian Metode Pengumpulan pada Kegiatan Kompilasi",
+      "section": "Blok IV – Desain Kegiatan",
+      "main_field": [
+        "metode_pengumpulan_data"
+      ],
+      "check_type": "Konsistensi",
+      "description": "Memastikan kegiatan kompilasi menggunakan metode pengumpulan data sekunder atau dokumentasi yang sesuai.",
+      "applicability": "Jenis kegiatan dapat ditentukan dan metode dapat diinterpretasi.",
+      "violation_condition": "Kegiatan adalah kompilasi tetapi metode data sekunder atau dokumentasi tidak dipilih.",
+      "pass_condition": "Bukan kompilasi, atau kompilasi dan metode data sekunder dikenali.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau pilihan 'lainnya' tidak cukup menjelaskan sumber data.",
+      "severity": "error",
+      "ui_message": "Kegiatan kompilasi belum menggunakan atau menandai metode pengumpulan data sekunder."
+    },
+    {
+      "rule_id": "R-V-01",
+      "title": "Ketersediaan Blok Desain Sampel untuk Survei",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "blok_v"
+      ],
+      "check_type": "Kelengkapan / applicability",
+      "description": "Memastikan Blok V tersedia untuk kegiatan survei; non-survei tidak diwajibkan.",
+      "applicability": "Jenis kegiatan harus dapat ditentukan.",
+      "violation_condition": "Kegiatan adalah survei dan Blok V tidak ada atau seluruh isian relevan kosong.",
+      "pass_condition": "Non-survei, atau survei dengan Blok V tersedia.",
+      "not_evaluable_condition": "Jenis kegiatan tidak dapat ditentukan (activity_type_unavailable).",
+      "severity": "error",
+      "ui_message": "Blok desain sampel belum tersedia untuk kegiatan survei."
+    },
+    {
+      "rule_id": "R-V-02",
+      "title": "Kelengkapan Konsep Utama Desain Sampel",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "beberapa_field_desain_sampel"
+      ],
+      "check_type": "Kelengkapan konseptual",
+      "description": "Memeriksa kelengkapan field utama desain sampel.",
+      "applicability": "Kegiatan survei dan field desain sampel dapat dibaca.",
+      "violation_condition": "Satu atau lebih konsep yang diwajibkan oleh konteks sampling terisi kosong secara eksplisit.",
+      "pass_condition": "Field yang diperlukan sesuai rancangan tersedia.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau konsep tidak dapat dinilai dari schema atau isian.",
+      "severity": "error",
+      "ui_message": "Isian desain sampel belum lengkap."
+    },
+    {
+      "rule_id": "R-V-03A",
+      "title": "Kelengkapan Metode Sampel Probabilitas",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "probability_method_detail",
+        "metode_sampling"
+      ],
+      "check_type": "Konsistensi probabilitas",
+      "description": "Untuk sampel probabilitas, memastikan metode probabilitas atau tahap terakhir dijelaskan.",
+      "applicability": "Survei dengan metode pemilihan yang teridentifikasi probabilitas.",
+      "violation_condition": "Metode probabilitas diperlukan tetapi detail atau metode tidak tersedia secara eksplisit.",
+      "pass_condition": "Metode probabilitas teridentifikasi dari field metode atau detail yang diakui.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau kategori sampling tidak dapat ditentukan.",
+      "severity": "error",
+      "ui_message": "Metode sampel probabilitas belum dijelaskan."
+    },
+    {
+      "rule_id": "R-V-03B",
+      "title": "Kelengkapan Kerangka Sampel Probabilitas",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "sampling_frame"
+      ],
+      "check_type": "Konsistensi probabilitas",
+      "description": "Untuk sampel probabilitas, memastikan kerangka sampel tersedia.",
+      "applicability": "Survei dengan sampling probabilitas.",
+      "violation_condition": "Kerangka sampel kosong ketika wajib.",
+      "pass_condition": "Kerangka sampel tersedia.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau kategori sampling tidak dapat ditentukan.",
+      "severity": "error",
+      "ui_message": "Kerangka sampel belum diisi untuk desain probabilitas."
+    },
+    {
+      "rule_id": "R-V-03C",
+      "title": "Kelengkapan Fraksi Sampel Probabilitas",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "sampling_fraction"
+      ],
+      "check_type": "Konsistensi probabilitas",
+      "description": "Untuk sampel probabilitas, memastikan fraksi sampel tersedia.",
+      "applicability": "Survei dengan sampling probabilitas.",
+      "violation_condition": "Fraksi sampel kosong ketika wajib.",
+      "pass_condition": "Fraksi sampel tersedia.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau kategori sampling tidak dapat ditentukan.",
+      "severity": "error",
+      "ui_message": "Fraksi sampel belum diisi untuk desain probabilitas."
+    },
+    {
+      "rule_id": "R-V-03D",
+      "title": "Kelengkapan Perkiraan Sampling Error",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "sampling_error"
+      ],
+      "check_type": "Konsistensi probabilitas",
+      "description": "Untuk sampel probabilitas, memastikan perkiraan sampling error tersedia.",
+      "applicability": "Survei dengan sampling probabilitas.",
+      "violation_condition": "Sampling error kosong ketika wajib.",
+      "pass_condition": "Sampling error tersedia.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau kategori sampling tidak dapat ditentukan.",
+      "severity": "error",
+      "ui_message": "Perkiraan sampling error belum diisi untuk desain probabilitas."
+    },
+    {
+      "rule_id": "R-V-08A",
+      "title": "Konsistensi Fraksi Sampel Multi-Stage atau Multi-Phase",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "fraksi_sampel_keseluruhan"
+      ],
+      "check_type": "Konsistensi / heuristik",
+      "description": "Memeriksa bentuk fraksi sampel pada rancangan multi-stage atau multi-phase.",
+      "applicability": "Survei, jenis rancangan dapat ditentukan, dan fraksi tersedia.",
+      "violation_condition": "Rancangan multi-stage/phase tetapi representasi fraksi tidak menunjukkan struktur yang diharapkan menurut heuristik.",
+      "pass_condition": "Tidak ada indikasi ketidaksesuaian format fraksi.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia, jenis rancangan tidak jelas, atau fraksi tidak dapat diinterpretasi.",
+      "severity": "warning",
+      "ui_message": "Fraksi sampel terindikasi belum merepresentasikan seluruh tahapan pemilihan."
+    },
+    {
+      "rule_id": "R-V-11",
+      "title": "Batas Nilai Sampling Error",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "nilai_perkiraan_sampling_error_variabel_utama"
+      ],
+      "check_type": "Logika bisnis",
+      "description": "Memberi peringatan ketika ukuran sampling error yang dapat diinterpretasi melebihi 5%.",
+      "applicability": "Survei dan nilai sampling error dapat diinterpretasi sebagai persentase atau ukuran yang sesuai.",
+      "violation_condition": "Nilai numerik sampling error lebih besar dari 5%.",
+      "pass_condition": "Nilai dapat diinterpretasi dan kurang dari atau sama dengan 5%.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia, nilai kosong, format tidak dikenali, atau angka tidak dapat dipastikan sebagai persentase yang relevan.",
+      "severity": "warning",
+      "ui_message": "Nilai sampling error melebihi 5% dan perlu dipertimbangkan kembali."
+    },
+    {
+      "rule_id": "R-V-12",
+      "title": "Kejelasan Jenis Ukuran Sampling Error",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "nilai_perkiraan_sampling_error_variabel_utama"
+      ],
+      "check_type": "Format",
+      "description": "Memastikan jenis ukuran sampling error disebutkan, misalnya RSE, CV, MoE, atau alpha.",
+      "applicability": "Survei dan isian sampling error tersedia serta dapat dibaca.",
+      "violation_condition": "Nilai diisi tetapi jenis ukuran error tidak dapat dikenali dari isian.",
+      "pass_condition": "Isian menyebut ukuran yang dikenali.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia, nilai kosong, atau isian tidak cukup dapat diinterpretasi.",
+      "severity": "warning",
+      "ui_message": "Jenis ukuran sampling error belum dinyatakan dengan jelas."
+    },
+    {
+      "rule_id": "R-V-14A",
+      "title": "Kelengkapan Unit Sampel, Observasi, dan Analisis",
+      "section": "Blok V – Desain Sampel",
+      "main_field": [
+        "unit_sampel",
+        "unit_observasi",
+        "unit_analisis"
+      ],
+      "check_type": "Kelengkapan / konsistensi",
+      "description": "Memeriksa ketersediaan unit sampel, unit observasi, dan unit analisis pada konteks survei.",
+      "applicability": "Jenis kegiatan survei dan field unit tersedia secara struktural.",
+      "violation_condition": "Satu atau lebih unit yang diwajibkan kosong secara eksplisit.",
+      "pass_condition": "Unit yang diperlukan terisi.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau field benar-benar tidak tersedia sehingga tidak dapat dinilai.",
+      "severity": "warning",
+      "ui_message": "Unit sampel, observasi, atau analisis belum lengkap."
+    },
+    {
+      "rule_id": "R-VI-01",
+      "title": "Pelaksanaan Uji Coba pada Kegiatan Non-Kompilasi",
+      "section": "Blok VI – Pengumpulan Data",
+      "main_field": [
+        "apakah_melakukan_uji_coba"
+      ],
+      "check_type": "Logika bisnis",
+      "description": "Untuk kegiatan survei atau pendataan lengkap, menyarankan pelaksanaan uji coba.",
+      "applicability": "Jenis kegiatan atau status non-kompilasi harus dapat ditentukan.",
+      "violation_condition": "Kegiatan bukan kompilasi dan uji coba = tidak.",
+      "pass_condition": "Kompilasi, atau kegiatan relevan melakukan uji coba.",
+      "not_evaluable_condition": "Konsep yang diperlukan tidak tersedia atau jenis kegiatan tidak dapat disimpulkan.",
+      "severity": "warning",
+      "ui_message": "Kegiatan non-kompilasi belum melakukan uji coba."
+    },
+    {
+      "rule_id": "R-VI-02",
+      "title": "Uji Coba untuk Penggunaan CAPI atau CAWI",
+      "section": "Blok VI – Pengumpulan Data",
+      "main_field": [
+        "apakah_melakukan_uji_coba",
+        "sarana_pengumpulan_data"
+      ],
+      "check_type": "Logika bisnis",
+      "description": "Mendeteksi penggunaan CAPI atau CAWI tanpa pelaksanaan uji coba sistem.",
+      "applicability": "Sarana pengumpulan dan status uji coba dapat dibaca.",
+      "violation_condition": "Uji coba = tidak dan CAPI atau CAWI digunakan.",
+      "pass_condition": "Uji coba dilakukan atau CAPI/CAWI tidak digunakan.",
+      "not_evaluable_condition": "Sarana atau status uji coba tidak dapat diinterpretasi.",
+      "severity": "warning",
+      "ui_message": "CAPI/CAWI digunakan tanpa pelaksanaan uji coba sistem."
+    },
+    {
+      "rule_id": "R-VI-04A",
+      "title": "Kewajaran Pendidikan Petugas Pengumpulan Data",
+      "section": "Blok VI – Pengumpulan Data",
+      "main_field": [
+        "persyaratan_pendidikan_terendah_petugas_pengumpulan_data"
+      ],
+      "check_type": "Logika bisnis / heuristik",
+      "description": "Mendeteksi indikasi pendidikan petugas yang terlalu rendah untuk konteks pengumpulan data tertentu.",
+      "applicability": "Field pendidikan dan konteks metode atau kompleksitas yang cukup tersedia.",
+      "violation_condition": "Pendidikan terindikasi setingkat SMP secara eksplisit pada konteks yang membutuhkan kualifikasi lebih tinggi.",
+      "pass_condition": "Tidak ada indikasi kondisi tersebut.",
+      "not_evaluable_condition": "Konteks kompleksitas, metode, atau pendidikan tidak cukup untuk menyimpulkan.",
+      "severity": "warning",
+      "ui_message": "Persyaratan pendidikan petugas terindikasi terlalu rendah untuk konteks kegiatan."
+    },
+    {
+      "rule_id": "R-VI-05",
+      "title": "Perbandingan Jumlah Supervisor dan Enumerator",
+      "section": "Blok VI – Pengumpulan Data",
+      "main_field": [
+        "jumlah_supervisor",
+        "jumlah_enumerator"
+      ],
+      "check_type": "Logika bisnis",
+      "description": "Memeriksa agar jumlah supervisor tidak melebihi enumerator.",
+      "applicability": "Kedua jumlah petugas berhasil diparse.",
+      "violation_condition": "Jumlah supervisor lebih besar daripada jumlah enumerator.",
+      "pass_condition": "Jumlah supervisor lebih kecil atau sama dengan jumlah enumerator.",
+      "not_evaluable_condition": "Jumlah petugas yang diperlukan untuk perbandingan belum tersedia atau salah satu jumlah tidak dapat diparse.",
+      "severity": "warning",
+      "ui_message": "Jumlah supervisor melebihi jumlah enumerator."
+    },
+    {
+      "rule_id": "R-VI-07",
+      "title": "Pelatihan Petugas untuk Metode yang Memerlukannya",
+      "section": "Blok VI – Pengumpulan Data",
+      "main_field": [
+        "apakah_melakukan_pelatihan_petugas",
+        "metode_pengumpulan"
+      ],
+      "check_type": "Logika bisnis",
+      "description": "Memastikan pelatihan petugas dilakukan ketika metode wawancara atau pengamatan digunakan.",
+      "applicability": "Metode pengumpulan dan status pelatihan dapat diinterpretasi.",
+      "violation_condition": "Wawancara atau pengamatan digunakan dan pelatihan = tidak.",
+      "pass_condition": "Metode tidak memerlukan pelatihan menurut rule, atau pelatihan dilakukan.",
+      "not_evaluable_condition": "Nilai metode atau pelatihan tidak tersedia atau tidak dapat dinormalisasi.",
+      "severity": "error",
+      "ui_message": "Pelatihan petugas belum dilakukan untuk metode yang memerlukannya."
+    },
+    {
+      "rule_id": "R-VI-08",
+      "title": "Konsistensi Supervisor dan Metode Supervisi",
+      "section": "Blok VI – Pengumpulan Data",
+      "main_field": [
+        "jumlah_supervisor",
+        "metode_pemeriksaan_kualitas"
+      ],
+      "check_type": "Konsistensi",
+      "description": "Jika terdapat supervisor, metode pemeriksaan kualitas harus mencakup supervisi.",
+      "applicability": "Jumlah supervisor dapat diparse dan metode pemeriksaan kualitas tersedia.",
+      "violation_condition": "Jumlah supervisor lebih dari 0 dan opsi supervisi tidak dipilih.",
+      "pass_condition": "Tidak ada supervisor, atau ada supervisor dan supervisi dipilih.",
+      "not_evaluable_condition": "Jumlah supervisor belum tersedia atau tidak dapat diparse, atau metode tidak dapat dinilai.",
+      "severity": "error",
+      "ui_message": "Jika terdapat supervisor, metode pemeriksaan kualitas harus mencakup supervisi."
+    },
+    {
+      "rule_id": "R-VII-01",
+      "title": "Kelengkapan Tahapan Pengolahan Data",
+      "section": "Blok VII – Pengolahan dan Analisis",
+      "main_field": [
+        "tahapan_pengolahan_data"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan minimal satu tahapan pengolahan seperti editing, coding, data entry, atau validasi dipilih.",
+      "applicability": "Struktur tahapan pengolahan tersedia.",
+      "violation_condition": "Semua opsi tahapan pengolahan bernilai false atau tidak dipilih.",
+      "pass_condition": "Minimal satu tahapan dipilih.",
+      "not_evaluable_condition": "Struktur tahapan tidak tersedia atau tidak dapat dibaca.",
+      "severity": "error",
+      "ui_message": "Belum ada tahapan pengolahan data yang dipilih."
+    },
+    {
+      "rule_id": "R-VII-03",
+      "title": "Kesesuaian Inferensia dan Sampling Probabilitas",
+      "section": "Blok VII – Pengolahan dan Analisis",
+      "main_field": [
+        "metode_analisis",
+        "metode_sampling"
+      ],
+      "check_type": "Konsistensi",
+      "description": "Jika analisis inferensia dilakukan pada survei, metode pemilihan sampel harus probabilitas.",
+      "applicability": "Jenis kegiatan survei, metode analisis, dan kategori sampling dapat ditentukan.",
+      "violation_condition": "Analisis inferensia, survei, dan sampling bukan probabilitas.",
+      "pass_condition": "Tidak menggunakan inferensia, bukan survei, atau sampling probabilitas.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau kategori sampling atau metode analisis tidak dapat ditentukan.",
+      "severity": "error",
+      "ui_message": "Analisis inferensia pada survei memerlukan desain sampling probabilitas."
+    },
+    {
+      "rule_id": "R-VII-04",
+      "title": "Kelengkapan Desain Sampel untuk Analisis Inferensia",
+      "section": "Blok VII – Pengolahan dan Analisis",
+      "main_field": [
+        "metode_analisis",
+        "kelengkapan_blok_v"
+      ],
+      "check_type": "Konsistensi",
+      "description": "Jika analisis inferensia digunakan pada survei, informasi desain sampel yang relevan harus tersedia.",
+      "applicability": "Survei dengan analisis inferensia.",
+      "violation_condition": "Analisis inferensia pada survei tetapi Blok V atau konsep sampling yang diperlukan tidak lengkap.",
+      "pass_condition": "Tidak menggunakan inferensia, bukan survei, atau desain sampel cukup.",
+      "not_evaluable_condition": "Jenis kegiatan tidak tersedia atau kelengkapan konsep tidak dapat ditentukan.",
+      "severity": "error",
+      "ui_message": "Desain sampel belum memadai untuk analisis inferensia."
+    },
+    {
+      "rule_id": "R-VIII-01",
+      "title": "Ketersediaan Produk Diseminasi",
+      "section": "Blok VIII – Diseminasi",
+      "main_field": [
+        "ketersediaan_produk"
+      ],
+      "check_type": "Kelengkapan",
+      "description": "Memastikan minimal satu produk hasil tersedia atau direncanakan untuk diseminasi.",
+      "applicability": "Field ketersediaan produk dapat dibaca.",
+      "violation_condition": "Semua opsi utama produk seperti digital, mikrodata, atau tercetak bernilai false atau tidak tersedia.",
+      "pass_condition": "Minimal satu produk tersedia.",
+      "not_evaluable_condition": "Field produk tidak tersedia atau tidak dapat diinterpretasi.",
+      "severity": "error",
+      "ui_message": "Belum ada produk hasil kegiatan yang dinyatakan tersedia untuk diseminasi."
+    }
+  ]
+}
