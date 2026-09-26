@@ -1,0 +1,28 @@
+---
+deployment:
+  tasks:
+    # Path project & document root
+    - export APPPATH=/home/romantik/repositories/romantik-web
+    - export PUBLICPATH=/home/romantik/public_html
+
+    # Install dependency PHP
+    - cd $APPPATH && /opt/cpanel/composer/bin/composer install --optimize-autoloader --no-dev --no-interaction
+
+    # Salin isi folder public ke document root
+    - /bin/cp -R $APPPATH/public/. $PUBLICPATH
+
+    # Perbaiki path di index.php agar mengarah ke folder aplikasi yang sebenarnya
+    - /bin/sed -i "s#__DIR__.'/../vendor/autoload.php'#'$APPPATH/vendor/autoload.php'#g" $PUBLICPATH/index.php
+    - /bin/sed -i "s#__DIR__.'/../bootstrap/app.php'#'$APPPATH/bootstrap/app.php'#g" $PUBLICPATH/index.php
+
+    # Set permission folder yang wajib writable
+    - /bin/chmod -R 755 $APPPATH/storage $APPPATH/bootstrap/cache
+
+    # Bersihkan & cache ulang config Laravel
+    - cd $APPPATH && php artisan config:clear
+    - cd $APPPATH && php artisan config:cache
+    - cd $APPPATH && php artisan route:cache
+    - cd $APPPATH && php artisan view:cache
+
+    # Migrasi database otomatis (hapus baris ini kalau tidak mau otomatis tiap deploy)
+    - cd $APPPATH && php artisan migrate --force
