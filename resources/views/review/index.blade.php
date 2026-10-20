@@ -78,7 +78,7 @@
                     </div>
                     <span
                         class="text-[11px] font-medium text-sky-700 bg-sky-100/70 px-2.5 py-0.5 rounded-full border border-sky-200">
-                        Penanda Status: Fitur Unggah Aktif &mdash; Pemeriksaan AI Terhubung
+                        Penanda Status: Fitur Unggah Aktif &mdash; Pemeriksaan AI Belum Terhubung
                     </span>
                 </div>
             @else
