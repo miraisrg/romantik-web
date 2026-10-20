@@ -372,8 +372,7 @@
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr>
                             <td style="border: none; padding: 0; vertical-align: middle;">
-                                <strong style="color: #475569; font-size: 8pt;">Temuan
-                                    #{{ $finding['index'] }}</strong>
+                                <strong style="color: #475569; font-size: 8pt;">Temuan #{{ $finding['index'] }}</strong>
                                 &nbsp;
                                 <span class="badge-rule">{{ $finding['rule_id'] }}</span>
                                 &nbsp;

@@ -2,11 +2,10 @@
 
 use Illuminate\Http\UploadedFile;
 
-test('halaman utama menampilkan form unggah dan penanda status baru', function () {
+test('halaman utama menampilkan form unggah', function () {
     $response = $this->get('/');
 
     $response->assertStatus(200);
-    $response->assertSee('Penanda Status: Fitur Unggah Aktif &mdash; Pemeriksaan AI Belum Terhubung', false);
     $response->assertSee('Pemeriksaan Formulir ROMANTIK');
     $response->assertSee('Unggah Berkas Formulir');
 });

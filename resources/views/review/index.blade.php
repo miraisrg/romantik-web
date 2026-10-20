@@ -211,9 +211,7 @@
                                     </svg>
                                 </button>
                                 @if ($notEvaluableCount === 0)
-                                    <p class="text-[11px] text-slate-500 mt-1">Terdapat {{ $nNotEvaluable }} aturan
-                                        yang belum dapat dievaluasi, tetapi detail aturan belum tersedia pada respons
-                                        pemeriksaan.</p>
+                                    <p class="text-[11px] text-slate-500 mt-1">Terdapat {{ $nNotEvaluable }} aturan yang belum dapat dievaluasi, tetapi detail aturan belum tersedia pada respons pemeriksaan.</p>
                                 @endif
                             @else
                                 <p class="text-[11px] text-slate-500">Semua aturan yang relevan dapat dievaluasi.</p>
@@ -264,8 +262,7 @@
                                     class="rounded-xl border border-slate-200/90 bg-white p-3.5 text-left shadow-2xs hover:border-slate-300 transition-colors">
                                     <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                                         <div class="flex items-center gap-2">
-                                            <span class="text-xs font-medium text-slate-500">Temuan
-                                                #{{ $index + 1 }}</span>
+                                            <span class="text-xs font-medium text-slate-500">Temuan #{{ $index + 1 }}</span>
                                             @if (!empty($finding['rule_id']) && $finding['rule_id'] !== '-')
                                                 <a href="{{ route('rules.index', ['rule' => $finding['rule_id']]) }}"
                                                     class="font-mono text-xs font-bold text-orange-700 bg-orange-50 hover:bg-orange-100 hover:text-orange-800 px-2 py-0.5 rounded border border-orange-200/80 transition-colors inline-flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-orange-500"
@@ -695,8 +692,7 @@
                         <!-- Penjelasan Singkat (TUGAS 2) -->
                         <div
                             class="mt-3 rounded-lg bg-slate-50 border border-slate-200/80 p-2.5 sm:p-3 text-xs text-slate-600 leading-relaxed">
-                            <p>Aturan berikut belum dapat dievaluasi karena informasi yang diperlukan tidak tersedia
-                                atau kondisi evaluasinya tidak terpenuhi.</p>
+                            <p>Aturan berikut belum dapat dievaluasi karena informasi yang diperlukan tidak tersedia atau kondisi evaluasinya tidak terpenuhi.</p>
                         </div>
 
                         <!-- Search Input (TUGAS 6) -->
@@ -774,15 +770,13 @@
 
                                     @if ($ruleDescription)
                                         <div class="mt-2 text-xs">
-                                            <span class="font-semibold text-slate-700 block mb-0.5">Apa yang
-                                                diperiksa:</span>
+                                            <span class="font-semibold text-slate-700 block mb-0.5">Apa yang diperiksa:</span>
                                             <p class="text-slate-600 leading-relaxed">{{ $ruleDescription }}</p>
                                         </div>
                                     @endif
 
                                     <div class="mt-2 text-xs">
-                                        <span class="font-semibold text-slate-700 block mb-0.5">Mengapa belum dapat
-                                            dievaluasi:</span>
+                                        <span class="font-semibold text-slate-700 block mb-0.5">Mengapa belum dapat dievaluasi:</span>
                                         <p class="font-semibold text-slate-800">{{ $formatted['title'] }}</p>
                                         <p class="text-slate-600 leading-relaxed mt-0.5">
                                             {{ $formatted['description'] }}</p>
@@ -870,11 +864,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
                                 </svg>
-                                <p class="font-medium text-slate-700">Terdapat {{ $nNotEvaluable }} aturan yang belum
-                                    dapat dievaluasi, tetapi detail aturan belum tersedia pada respons pemeriksaan.</p>
+                                <p class="font-medium text-slate-700">Terdapat {{ $nNotEvaluable }} aturan yang belum dapat dievaluasi, tetapi detail aturan belum tersedia pada respons pemeriksaan.</p>
                                 <p class="text-xs text-slate-400 mt-1">
-                                    Detail aturan belum tersedia pada response pemeriksaan. Backend response saat ini
-                                    hanya menyertakan jumlah ringkasan aturan ({{ $nNotEvaluable }} aturan).
+                                    Detail aturan belum tersedia pada response pemeriksaan. Backend response saat ini hanya menyertakan jumlah ringkasan aturan ({{ $nNotEvaluable }} aturan).
                                 </p>
                             </div>
                         @endif
