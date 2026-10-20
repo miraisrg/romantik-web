@@ -76,10 +76,6 @@
                             Formulir siap diperiksa. Klik tombol "Jalankan Pemeriksaan" untuk memulai evaluasi.
                         </p>
                     </div>
-                    <span
-                        class="text-[11px] font-medium text-sky-700 bg-sky-100/70 px-2.5 py-0.5 rounded-full border border-sky-200">
-                        Penanda Status: Fitur Unggah Aktif &mdash; Pemeriksaan AI Belum Terhubung
-                    </span>
                 </div>
             @else
                 <div
@@ -94,10 +90,6 @@
                             Silakan unggah satu berkas formulir ROMANTIK berformat .json untuk memulai pemeriksaan.
                         </p>
                     </div>
-                    <span
-                        class="text-[11px] font-medium text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
-                        Penanda Status: Fitur Unggah Aktif &mdash; Pemeriksaan AI Belum Terhubung
-                    </span>
                 </div>
             @endif
         @endif
