@@ -1,58 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ROMANTIK Web
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web prototipe untuk pemeriksaan formulir rekomendasi kegiatan statistik ROMANTIK BPS menggunakan model **Hybrid AI** yang mengintegrasikan **Rule-Based System (RBS)** dan **fine-tuned Large Language Model (LLM)**.
 
-## About Laravel
+Aplikasi ini adalah antarmuka pengguna untuk [ROMANTIK AI API](https://github.com/miraisrg/romantik-ai-api), yang menjalankan pemeriksaan RBS dan generasi catatan oleh LLM.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Repositori ini merupakan produk skripsi:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> **Pengembangan Model Hybrid AI Berbasis Fine-Tuned LLM dan Rule-Based System untuk Otomatisasi Pemeriksaan Formulir Kegiatan Statistik (Studi Kasus: ROMANTIK BPS)**
+>
+> Amir Mumtaz Siregar (222212493), D-IV Komputasi Statistik, Politeknik Statistika STIS
+> Dosen pembimbing: Prof. Setia Pramana, S.Si., M.Sc., Ph.D.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> **Catatan:** Sistem ini merupakan *proof of concept* alat bantu pemeriksa, bukan pengganti keputusan pemeriksa.
 
-## Learning Laravel
+## Fitur
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Unggah formulir ROMANTIK dalam format JSON (maksimal 10 MB)
+- Pemeriksaan formulir melalui ROMANTIK AI API
+- Penyajian temuan RBS beserta *evidence*
+- Informasi aturan yang tidak dapat dievaluasi (*not_evaluable*)
+- Penyajian catatan pemeriksaan Hybrid AI
+- Katalog aturan pemeriksaan
+- Unduh hasil pemeriksaan dalam format PDF
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teknologi
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- Laravel 13 (PHP 8.3+)
+- Blade, Tailwind CSS 4, dan Vite
+- barryvdh/laravel-dompdf untuk ekspor PDF
+- Pest untuk pengujian
 
-## Agentic Development
+## Struktur Utama
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```
+app/
+├── Http/Controllers/
+│   ├── ReviewController.php       # Unggah, proses, reset, unduh PDF
+│   └── RuleCatalogController.php  # Katalog aturan
+├── Services/
+│   ├── RomantikAiClient.php       # Komunikasi dengan ROMANTIK AI API
+│   ├── ReviewHtmlFormatter.php    # Format catatan Hybrid AI
+│   ├── RbsNotEvaluableFormatter.php
+│   └── RuleCatalogService.php
+└── Exceptions/                    # Error dan timeout API
+resources/views/
+├── review/                        # Halaman pemeriksaan dan template PDF
+└── rules/                         # Halaman katalog aturan
+storage/app/data/rule_catalog.json # Data katalog aturan
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Instalasi Lokal
 
-## Contributing
+Kebutuhan: PHP 8.3+, Composer, Node.js, dan npm.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/miraisrg/romantik-web.git
+cd romantik-web
 
-## Code of Conduct
+composer install
+npm install
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
 
-## Security Vulnerabilities
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Konfigurasi
 
-## License
+Atur alamat ROMANTIK AI API pada file `.env`:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```env
+ROMANTIK_AI_API_URL=https://alamat-api-anda
+ROMANTIK_AI_TIMEOUT=120
+```
+
+`ROMANTIK_AI_TIMEOUT` adalah batas waktu tunggu (detik) untuk setiap permintaan pemeriksaan. Generasi catatan oleh LLM dapat memakan waktu cukup lama, sehingga nilai ini sebaiknya tidak terlalu kecil.
+
+## Menjalankan Aplikasi
+
+```bash
+php artisan serve
+```
+
+Buka `http://localhost:8000`.
+
+## Halaman
+
+| Method | Route | Keterangan |
+|---|---|---|
+| GET | `/` | Halaman utama pemeriksaan |
+| POST | `/review/upload` | Unggah formulir JSON |
+| POST | `/review/process` | Kirim formulir ke ROMANTIK AI API |
+| GET/POST | `/review/reset` | Mulai pemeriksaan baru |
+| GET | `/review/download/pdf` | Unduh hasil pemeriksaan (PDF) |
+| GET | `/rules` | Katalog aturan |
+
+## Pengujian
+
+```bash
+php artisan test
+```
+
+Pengujian komunikasi API menggunakan respons tiruan, sehingga tidak memerlukan ROMANTIK AI API yang aktif.
+
+## Deployment
+
+Repositori menyediakan dua opsi deployment:
+
+- **cPanel**: menggunakan `.cpanel.yml`. Aset frontend sudah di-*build* ke `public/build` karena cPanel tidak menjalankan npm.
+- **Docker / Render**: menggunakan `Dockerfile` dan `render.yaml`.
+
+Pada kedua opsi, atur `APP_KEY`, `APP_URL`, dan `ROMANTIK_AI_API_URL` sebagai *environment variable*.
